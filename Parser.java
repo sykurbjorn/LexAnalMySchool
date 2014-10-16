@@ -135,7 +135,6 @@ public class Parser {
             more_method_declarations();
         }
         return;
-
     }
 
     private void method_declaration()
@@ -320,27 +319,88 @@ public class Parser {
 
     private void statement_left_factor()
     {
-
+        if(tcs.peek() == TokenCode.LPAREN)
+        {
+            tcs.pop();
+            expression_list();
+            if(tcs.peek() == TokenCode.RPAREN)
+            {
+                tcs.pop();
+                return;
+            }
+        }
+        else
+        {
+            variable_loc_left_factor();
+            statement_left_left_factor();
+        }
     }
 
     private void statement_left_left_factor()
     {
-
+        if(tcs.peek() == TokenCode.ASSIGNOP)
+        {
+            tcs.pop();
+            expression();
+            if(tcs.peek() == TokenCode.SEMICOLON)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        if(tcs.peek() == TokenCode.INCDECOP)
+        {
+            tcs.pop();
+            if(tcs.peek() == TokenCode.SEMICOLON)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        // error
     }
 
     private void optional_expression()
     {
-
+        if(tcs.peek() == TokenCode.ADDOP ||
+                tcs.peek() == TokenCode.IDENTIFIER ||
+                tcs.peek() == TokenCode.NUMBER ||
+                tcs.peek() == TokenCode.LPAREN ||
+                tcs.peek() == TokenCode.NOT
+                )
+        {
+            expression();
+        }
+        return;
     }
 
     private void statement_block()
     {
-
+        if(tcs.peek() == TokenCode.RBRACE)
+        {
+            tcs.pop();
+            statement_block();
+            if(tcs.peek() == TokenCode.LBRACE)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        // error
     }
 
     private void incr_decr_var()
     {
-
+        variable_loc();
+        if(tcs.peek() == TokenCode.INCDECOP)
+        {
+            tcs.pop();
+            return;
+        }
+        // error
     }
 
     private void optional_else()
@@ -432,29 +492,75 @@ public class Parser {
         return;
     }
 
-    private void id_starting_factor()
-    {
-
-    }
-
-    private void id_starting_factor_rest()
-    {
-
-    }
-
     private void factor()
     {
+        if(tcs.peek() == TokenCode.IDENTIFIER)
+        {
+            tcs.pop();
+            factor_left_factor();
+        }
+        if(tcs.peek() == TokenCode.NUMBER)
+        {
+            tcs.pop();
+            return;
+        }
+        if(tcs.peek() == TokenCode.LPAREN)
+        {
+            tcs.pop();
+            expression();
+            if(tcs.peek() == TokenCode.RPAREN)
+            {
+                tcs.pop();
+                return;
+            }
+        }
+        if(tcs.peek() == TokenCode.NOT)
+        {
+            factor();
+        }
+        // error
+    }
 
+    private void factor_left_factor()
+    {
+        if(tcs.peek() == TokenCode.LPAREN)
+        {
+            tcs.pop();
+            expression_list();
+            if(tcs.peek() == TokenCode.RPAREN)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        variable_loc_left_factor();
     }
 
     private void variable_loc()
     {
-
+        if(tcs.peek() == TokenCode.IDENTIFIER)
+        {
+            tcs.pop();
+            variable_loc_left_factor();
+        }
+        // error
     }
 
     private void variable_loc_left_factor()
     {
-
+        if(tcs.peek() == TokenCode.LBRACKET)
+        {
+            tcs.pop();
+            expression();
+            if(tcs.peek() == TokenCode.RBRACKET)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        return;
     }
 
    private void sign()
