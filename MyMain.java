@@ -31,6 +31,13 @@ public class MyMain {
         break;
     }
 
+
+    Parser parser = new Parser(tokenCodeStack);
+    parser.parse();
+
+    System.out.println();
+    System.out.println("methodCallStack: "+ parser.getMethodCallStack());
+
     System.out.println("testStack: " + testStack);
     String pop = tokenCodeStack.pop().toString();
     String peek = tokenCodeStack.peek().toString();

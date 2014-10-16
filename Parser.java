@@ -6,8 +6,13 @@ import java.util.Stack;
  */
 public class Parser {
 
-    LinkedList<TokenCode> tcs;
-    Stack<String> methodCallStack;
+    private LinkedList<TokenCode> tcs;
+
+    public Stack<String> getMethodCallStack() {
+        return methodCallStack;
+    }
+
+    private Stack<String> methodCallStack = new Stack<String>();
 
     public Parser(LinkedList<TokenCode> tcs)
     {
