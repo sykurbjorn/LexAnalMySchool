@@ -232,20 +232,98 @@ public class Parser {
         return;
     }
 
-    private void id_starting_statement()
+    private void statement()
     {
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
             tcs.pop();
+            statement_left_factor();
         }
+        if(tcs.peek() == TokenCode.IF)
+        {
+            tcs.pop();
+            if(tcs.peek() == TokenCode.LPAREN)
+            {
+                tcs.pop();
+                expression();
+                if(tcs.peek() == TokenCode.RPAREN)
+                {
+                    tcs.pop();
+                    statement_block();
+                    optional_else();
+                }
+                // error
+            }
+            // error
+        }
+        if(tcs.peek() == TokenCode.FOR)
+        {
+            tcs.pop();
+            if(tcs.peek() == TokenCode.LPAREN)
+            {
+                tcs.pop();
+                variable_loc();
+                if(tcs.peek() == TokenCode.ASSIGNOP)
+                {
+                    tcs.pop();
+                    expression();
+                    if(tcs.peek() == TokenCode.SEMICOLON)
+                    {
+                        tcs.pop();
+                        expression();
+                        if(tcs.peek() == TokenCode.SEMICOLON)
+                        {
+                            tcs.pop();
+                            incr_decr_var();
+                            if(tcs.peek() == TokenCode.RPAREN)
+                            {
+                                tcs.pop();
+                                statement_block();
+                            }
+                            // error
+                        }
+                        // error
+                    }
+                    // error
+                }
+                // error
+            }
+            // error
+        }
+        if(tcs.peek() == TokenCode.RETURN)
+        {
+            tcs.pop();
+            optional_expression();
+        }
+        if(tcs.peek() == TokenCode.BREAK)
+        {
+            tcs.pop();
+            if(tcs.peek() == TokenCode.SEMICOLON)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        if(tcs.peek() == TokenCode.CONTINUE)
+        {
+            tcs.pop();
+            if(tcs.peek() == TokenCode.SEMICOLON)
+            {
+                tcs.pop();
+                return;
+            }
+            // error
+        }
+        else statement_block();
     }
 
-    private void id_starting_statement_rest()
+    private void statement_left_factor()
     {
 
     }
 
-    private void statement()
+    private void statement_left_left_factor()
     {
 
     }
