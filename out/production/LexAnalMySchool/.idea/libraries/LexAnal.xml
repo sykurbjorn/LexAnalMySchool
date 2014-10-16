@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="LexAnal">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/LexAnal.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
