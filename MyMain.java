@@ -27,7 +27,9 @@ public class MyMain {
       if (t != null && t.getTokenCode() == TokenCode.EOF)
         break;
     }
-    System.out.println();
+
+      System.out.println();
+      System.out.println("TokenCode Stack: " + tokenCodeStack.toString());
     System.out.println();
     for(int n=0;n<SymbolTable.size();n++) {
       System.out.print(n);
