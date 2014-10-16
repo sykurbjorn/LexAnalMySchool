@@ -359,6 +359,7 @@ public class Parser {
 
     private void statement_left_left_factor()
     {
+        methodCallStack.push("statement_left_left_factor()");
         if(tcs.peek() == TokenCode.ASSIGNOP)
         {
             tcs.pop();
@@ -385,6 +386,7 @@ public class Parser {
 
     private void optional_expression()
     {
+        methodCallStack.push("optional_expression()");
         if(tcs.peek() == TokenCode.ADDOP ||
                 tcs.peek() == TokenCode.IDENTIFIER ||
                 tcs.peek() == TokenCode.NUMBER ||
@@ -399,6 +401,7 @@ public class Parser {
 
     private void statement_block()
     {
+        methodCallStack.push("statement_block()");
         if(tcs.peek() == TokenCode.RBRACE)
         {
             tcs.pop();
@@ -415,6 +418,7 @@ public class Parser {
 
     private void incr_decr_var()
     {
+        methodCallStack.push("incr_decr_var()");
         variable_loc();
         if(tcs.peek() == TokenCode.INCDECOP)
         {
@@ -426,6 +430,7 @@ public class Parser {
 
     private void optional_else()
     {
+        methodCallStack.push("optional_else()");
         if(tcs.peek() == TokenCode.ELSE)
         {
             tcs.pop();
@@ -436,12 +441,14 @@ public class Parser {
 
     private void expression_list()
     {
+        methodCallStack.push("expression_list()");
         expression();
         more_expressions();
     }
 
     private void more_expressions()
     {
+        methodCallStack.push("more_expressions()");
         if( tcs.peek() == TokenCode.IDENTIFIER ||
             tcs.peek() == TokenCode.NUMBER ||
             tcs.peek() == TokenCode.NOT ||
@@ -455,6 +462,7 @@ public class Parser {
 
     private void expression()
     {
+        methodCallStack.push("expression()");
         if(tcs.peek() == TokenCode.COMMA)
         {
             tcs.pop();
@@ -466,6 +474,7 @@ public class Parser {
 
     private void ex_left_factor()
     {
+        methodCallStack.push("ex_left_factor()");
         if(tcs.peek() == TokenCode.RELOP)
         {
             tcs.pop();
@@ -476,6 +485,7 @@ public class Parser {
 
     private void simple_expression()
     {
+        methodCallStack.push("simple_expression()");
         if(tcs.peek() == TokenCode.ADDOP)
         {
             sign();
@@ -487,6 +497,7 @@ public class Parser {
 
     private void temp_simple_expression()
     {
+        methodCallStack.push("temp_simple_expression()");
         if(tcs.peek() == TokenCode.ADDOP)
         {
             tcs.pop();
@@ -498,12 +509,14 @@ public class Parser {
 
     private void term()
     {
+        methodCallStack.push("term()");
         factor();
         temp_term();
     }
 
     private void temp_term()
     {
+        methodCallStack.push("temp_term()");
         if(tcs.peek() == TokenCode.MULOP)
         {
             tcs.pop();
@@ -515,6 +528,7 @@ public class Parser {
 
     private void factor()
     {
+        methodCallStack.push("factor()");
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
             tcs.pop();
@@ -544,6 +558,7 @@ public class Parser {
 
     private void factor_left_factor()
     {
+        methodCallStack.push("factor_left_factor()");
         if(tcs.peek() == TokenCode.LPAREN)
         {
             tcs.pop();
@@ -560,6 +575,7 @@ public class Parser {
 
     private void variable_loc()
     {
+        methodCallStack.push("variable_loc()");
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
             tcs.pop();
@@ -570,6 +586,7 @@ public class Parser {
 
     private void variable_loc_left_factor()
     {
+        methodCallStack.push("variable_loc_left_factor()");
         if(tcs.peek() == TokenCode.LBRACKET)
         {
             tcs.pop();
@@ -586,6 +603,7 @@ public class Parser {
 
    private void sign()
    {
+       methodCallStack.push("sign()");
        if(tcs.peek() == TokenCode.ADDOP)
        {
             tcs.pop();
