@@ -31,6 +31,7 @@ public class MyMain {
         break;
     }
 
+    System.out.println("testStack: " + testStack);
     String pop = tokenCodeStack.pop().toString();
     String peek = tokenCodeStack.peek().toString();
     String remove = tokenCodeStack.remove().toString();

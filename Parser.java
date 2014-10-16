@@ -11,17 +11,20 @@ public class Parser {
 
     public Parser(LinkedList<TokenCode> tcs)
     {
+        methodCallStack.push("Parser");
         this.tcs = tcs;
     }
 
     public void parse()
     {
+        methodCallStack.push("parser()");
         tcs.pop();
         program();
     }
 
     private void program()
     {
+        methodCallStack.push("program()");
         if(tcs.peek() == TokenCode.CLASS)
         {
             tcs.pop();
@@ -49,6 +52,7 @@ public class Parser {
 
     private void variable_declarations()
     {
+        methodCallStack.push("variable_declarations()");
         if(tcs.peek() == TokenCode.INT || tcs.peek() == TokenCode.REAL)
         {
             type();
@@ -63,6 +67,7 @@ public class Parser {
 
     private void type()
     {
+        methodCallStack.push("type()");
         if(tcs.peek() == TokenCode.INT)
         {
             tcs.pop();
@@ -78,12 +83,14 @@ public class Parser {
 
     private void variable_list()
     {
+        methodCallStack.push("variable_list()");
         variable();
         temp_var_list();
     }
 
     private void temp_var_list()
     {
+        methodCallStack.push("temp_var_list()");
         if(tcs.peek() == TokenCode.COMMA)
         {
             tcs.pop();
@@ -94,6 +101,7 @@ public class Parser {
 
     private void variable()
     {
+        methodCallStack.push("variable()");
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
             tcs.pop();
@@ -105,6 +113,7 @@ public class Parser {
 
     private void variable_left_factor()
     {
+        methodCallStack.push("variable_left_factor()");
         if(tcs.peek() == TokenCode.LBRACKET)
         {
             tcs.pop();
@@ -125,12 +134,14 @@ public class Parser {
 
     private void method_declarations()
     {
+        methodCallStack.push("method_declarations()");
         method_declaration();
         more_method_declarations();
     }
 
     private void more_method_declarations()
     {
+        methodCallStack.push("more_method_declarations()");
         if(tcs.peek() == TokenCode.STATIC)
         {
             method_declaration();
@@ -142,6 +153,7 @@ public class Parser {
 
     private void method_declaration()
     {
+        methodCallStack.push("method_declaration()");
         if(tcs.peek() == TokenCode.STATIC)
         {
             tcs.pop();
@@ -176,6 +188,7 @@ public class Parser {
 
     private void method_return_type()
     {
+        methodCallStack.push("method_return_type()");
         if(tcs.peek() == TokenCode.VOID)
         {
             tcs.pop();
@@ -187,6 +200,7 @@ public class Parser {
 
     private void parameters()
     {
+        methodCallStack.push("parameters()");
         if(tcs.peek() == TokenCode.INT || tcs.peek() == TokenCode.REAL)
         {
             parameter_list();
@@ -196,6 +210,7 @@ public class Parser {
 
     private void parameter_list()
     {
+        methodCallStack.push("parameter_list()");
         type();
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
@@ -207,6 +222,7 @@ public class Parser {
 
     private void temp_parameter_list()
     {
+        methodCallStack.push("temp_parameter_list()");
         if(tcs.peek() == TokenCode.COMMA)
         {
             type();
@@ -220,6 +236,7 @@ public class Parser {
 
     private void statement_list()
     {
+        methodCallStack.push("statement_list()");
         if( tcs.peek() == TokenCode.IDENTIFIER ||
             tcs.peek() == TokenCode.IF ||
             tcs.peek() == TokenCode.FOR ||
@@ -236,6 +253,7 @@ public class Parser {
 
     private void statement()
     {
+        methodCallStack.push("statement()");
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
             tcs.pop();
@@ -322,7 +340,7 @@ public class Parser {
 
     private void statement_left_factor()
     {
-
+        methodCallStack.push("statement_left_factor()");
     }
 
     private void statement_left_left_factor()
