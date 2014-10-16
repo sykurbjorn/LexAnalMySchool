@@ -66,7 +66,9 @@ public class Parser {
         {
             type();
             variable_list();
-            if (tcs.peek() == TokenCode.SEMICOLON) {
+            if (tcs.peek() == TokenCode.SEMICOLON)
+            {
+                popTokenCodeStack();
                 variable_declarations();
             }
             // error
@@ -186,13 +188,18 @@ public class Parser {
                     parameters();
                     if(tcs.peek() == TokenCode.RPAREN)
                     {
+                        //popTokenCodeStack();
                         if(tcs.peek() == TokenCode.LBRACE)
                         {
+                            //popTokenCodeStack();
                             variable_declarations();
                             statement_list();
                             if(tcs.peek() == TokenCode.RBRACE)
+                            {
+                                //popTokenCodeStack();
                                 parsingDone();
                                 return;
+                            }
                             // error
                         }
                         // error
@@ -238,6 +245,7 @@ public class Parser {
         type();
         if(tcs.peek() == TokenCode.IDENTIFIER)
         {
+            popTokenCodeStack();
             temp_parameter_list();
         }
         // error
@@ -253,6 +261,7 @@ public class Parser {
             type();
             if(tcs.peek() == TokenCode.IDENTIFIER)
             {
+                popTokenCodeStack();
                 temp_parameter_list();
             }
         }
