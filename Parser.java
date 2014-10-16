@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -5,9 +6,10 @@ import java.util.Stack;
  */
 public class Parser {
 
-    Stack<TokenCode> tcs;
+    LinkedList<TokenCode> tcs;
+    Stack<String> methodCallStack;
 
-    public Parser(Stack<TokenCode> tcs)
+    public Parser(LinkedList<TokenCode> tcs)
     {
         this.tcs = tcs;
     }

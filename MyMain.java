@@ -1,10 +1,12 @@
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class MyMain {
   public static void main(String [] args) throws IOException {
     Lexer lexer = new Lexer(new FileReader(args[0]));
-    Stack<TokenCode> tokenCodeStack = new Stack();
+    LinkedList<TokenCode> tokenCodeStack = new LinkedList<TokenCode>();
+    Stack<TokenCode> testStack = new Stack<TokenCode>();
     boolean first = true;
     while(true) {
       if (first)
@@ -13,6 +15,7 @@ public class MyMain {
         System.out.print(" ");
       Token t = lexer.yylex();
       tokenCodeStack.add(t.getTokenCode());
+      testStack.add(t.getTokenCode());
       System.out.print(t.getTokenCode().toString());
       if (t.getTokenCode() == TokenCode.RELOP || 
           t.getTokenCode() == TokenCode.ADDOP ||
@@ -28,7 +31,16 @@ public class MyMain {
         break;
     }
 
+    String pop = tokenCodeStack.pop().toString();
+    String peek = tokenCodeStack.peek().toString();
+    String remove = tokenCodeStack.remove().toString();
+    String stackPop = testStack.pop().toString();
     System.out.println();
+    System.out.println();
+    System.out.println("pop: " + pop);
+    System.out.println("peek: " + peek);
+    System.out.println("remove: " + remove);
+    System.out.println("stackPop: " + stackPop);
     System.out.println();
     System.out.println("TokenCode Stack: " + tokenCodeStack.toString());
     System.out.println();
