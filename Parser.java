@@ -267,47 +267,91 @@ public class Parser {
 
     private void optional_else()
     {
-
+        if(tcs.peek() == TokenCode.ELSE)
+        {
+            tcs.pop();
+            statement_block();
+        }
+        return;
     }
 
     private void expression_list()
     {
-
+        expression();
+        more_expressions();
     }
 
     private void more_expressions()
     {
-
+        if( tcs.peek() == TokenCode.IDENTIFIER ||
+            tcs.peek() == TokenCode.NUMBER ||
+            tcs.peek() == TokenCode.NOT ||
+            tcs.peek() == TokenCode.LPAREN)
+        {
+            expression();
+            more_expressions();
+        }
+        return;
     }
 
     private void expression()
     {
-
+        if(tcs.peek() == TokenCode.COMMA)
+        {
+            tcs.pop();
+            expression();
+            more_expressions();
+        }
+        return;
     }
 
     private void ex_left_factor()
     {
-
+        if(tcs.peek() == TokenCode.RELOP)
+        {
+            tcs.pop();
+            simple_expression();
+        }
+        return;
     }
 
     private void simple_expression()
     {
+        if(tcs.peek() == TokenCode.ADDOP)
+        {
+            sign();
+        }
+        term();
+        temp_simple_expression();
 
     }
 
     private void temp_simple_expression()
     {
-
+        if(tcs.peek() == TokenCode.ADDOP)
+        {
+            tcs.pop();
+            term();
+            temp_simple_expression();
+        }
+        return;
     }
 
     private void term()
     {
-
+        factor();
+        temp_term();
     }
 
     private void temp_term()
     {
-
+        if(tcs.peek() == TokenCode.MULOP)
+        {
+            tcs.pop();
+            factor();
+            temp_term();
+        }
+        return;
     }
 
     private void id_starting_factor()
