@@ -38,19 +38,21 @@ public class MyMain {
     System.out.println();
     System.out.println("methodCallStack: "+ parser.getMethodCallStack());
 
-    System.out.println("testStack: " + testStack);
-    String pop = tokenCodeStack.pop().toString();
-    String peek = tokenCodeStack.peek().toString();
-    String remove = tokenCodeStack.remove().toString();
-    String stackPop = testStack.pop().toString();
-    System.out.println();
-    System.out.println();
-    System.out.println("pop: " + pop);
-    System.out.println("peek: " + peek);
-    System.out.println("remove: " + remove);
-    System.out.println("stackPop: " + stackPop);
-    System.out.println();
-    System.out.println("TokenCode Stack: " + tokenCodeStack.toString());
+      System.out.println("testStack: " + testStack);
+      System.out.println("TokenCode Stack: " + tokenCodeStack.toString());
+      System.out.println("number of tokens to pop: " + testStack.capacity());
+      System.out.println("total numbers of pops: " + parser.totalPops);
+      String pop = tokenCodeStack.pop().toString();
+      String peek = tokenCodeStack.peek().toString();
+      String remove = tokenCodeStack.remove().toString();
+      String stackPop = testStack.pop().toString();
+      System.out.println();
+      System.out.println();
+      System.out.println("pop: " + pop);
+      System.out.println("peek: " + peek);
+      System.out.println("remove: " + remove);
+      System.out.println("stackPop: " + stackPop);
+      System.out.println();
     System.out.println();
     for(int n=0;n<SymbolTable.size();n++) {
       System.out.print(n);
