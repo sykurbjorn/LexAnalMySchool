@@ -10,16 +10,4 @@ class Program {
 		}
 		return t[9];
 	}
-	static void main() {
-		x = 1;
-		y = 2.0*(3.14);
-		x++;
-		if (x>2) {
-			y = 123.45E-3;
-		}
-		else {
-			y = test(3.3);
-		}
-		x = x + 2;
-	}
 }

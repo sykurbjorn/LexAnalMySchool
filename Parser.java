@@ -188,15 +188,15 @@ public class Parser {
                     parameters();
                     if(tcs.peek() == TokenCode.RPAREN)
                     {
-                        //popTokenCodeStack();
+                        popTokenCodeStack();
                         if(tcs.peek() == TokenCode.LBRACE)
                         {
-                            //popTokenCodeStack();
+                            popTokenCodeStack();
                             variable_declarations();
                             statement_list();
                             if(tcs.peek() == TokenCode.RBRACE)
                             {
-                                //popTokenCodeStack();
+                                popTokenCodeStack();
                                 parsingDone();
                                 return;
                             }
@@ -281,6 +281,7 @@ public class Parser {
             tcs.peek() == TokenCode.LBRACE)
         {
             statement();
+            popTokenCodeStack();
             statement_list();
         }
         parsingDone();
@@ -511,6 +512,7 @@ public class Parser {
         methodCallStack.push("more_expressions()");
         if( tcs.peek() == TokenCode.COMMA)
         {
+            popTokenCodeStack();
             expression();
             more_expressions();
         }
@@ -619,6 +621,7 @@ public class Parser {
         }
         if(tcs.peek() == TokenCode.NOT)
         {
+            popTokenCodeStack();
             factor();
         }
         parsingDone();
@@ -680,9 +683,9 @@ public class Parser {
        methodCallStack.push("sign()");
        if(tcs.peek() == TokenCode.ADDOP)
        {
-            popTokenCodeStack();
+           popTokenCodeStack();
            parsingDone();
-            return;
+           return;
        }
        // error
        parsingDone();

@@ -40,8 +40,8 @@ public class MyMain {
 
       System.out.println("testStack: " + testStack);
       System.out.println("TokenCode Stack: " + tokenCodeStack.toString());
-      System.out.println("number of tokens to pop: " + testStack.capacity());
-      System.out.println("total numbers of pops: " + parser.totalPops);
+      System.out.println("number of tokens to poop: " + testStack.capacity());
+      System.out.println("total numbers of poops: " + parser.totalPops);
       String pop = tokenCodeStack.pop().toString();
       String peek = tokenCodeStack.peek().toString();
       String remove = tokenCodeStack.remove().toString();
