@@ -18,13 +18,15 @@ public class Parser {
     {
         methodCallStack.push("Parser");
         this.tcs = tcs;
+        methodCallStack.pop();
     }
 
     public void parse()
     {
-        methodCallStack.push("parser()");
-        tcs.pop();
+        methodCallStack.push("parse()");
+//        tcs.pop();
         program();
+        methodCallStack.pop();
     }
 
     private void program()
@@ -44,6 +46,7 @@ public class Parser {
                     if(tcs.peek() == TokenCode.RBRACE)
                     {
                         tcs.pop();
+                        methodCallStack.pop();
                         return;
                     }
                     //error
@@ -53,6 +56,7 @@ public class Parser {
             //error
         }
         //error
+        methodCallStack.pop();
     }
 
     private void variable_declarations()
@@ -67,6 +71,7 @@ public class Parser {
             }
             // error
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -76,14 +81,17 @@ public class Parser {
         if(tcs.peek() == TokenCode.INT)
         {
             tcs.pop();
+            methodCallStack.pop();
             return;
         }
         if(tcs.peek() == TokenCode.REAL)
         {
             tcs.pop();
+            methodCallStack.pop();
             return;
         }
         // error
+        methodCallStack.pop();
     }
 
     private void variable_list()
@@ -91,6 +99,7 @@ public class Parser {
         methodCallStack.push("variable_list()");
         variable();
         temp_var_list();
+        methodCallStack.pop();
     }
 
     private void temp_var_list()
@@ -101,6 +110,7 @@ public class Parser {
             tcs.pop();
             variable();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -113,6 +123,7 @@ public class Parser {
             variable_left_factor();
         }
         // error
+        methodCallStack.pop();
 
     }
 
@@ -128,12 +139,14 @@ public class Parser {
                 if(tcs.peek() == TokenCode.RBRACKET)
                 {
                     tcs.pop();
+                    methodCallStack.pop();
                     return;
                 }
                 // error
             }
             // error
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -142,6 +155,7 @@ public class Parser {
         methodCallStack.push("method_declarations()");
         method_declaration();
         more_method_declarations();
+        methodCallStack.pop();
     }
 
     private void more_method_declarations()
@@ -152,6 +166,7 @@ public class Parser {
             method_declaration();
             more_method_declarations();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -176,6 +191,7 @@ public class Parser {
                             variable_declarations();
                             statement_list();
                             if(tcs.peek() == TokenCode.RBRACE)
+                                methodCallStack.pop();
                                 return;
                             // error
                         }
@@ -188,6 +204,7 @@ public class Parser {
             // error
         }
         // error
+        methodCallStack.pop();
     }
 
     private void method_return_type()
@@ -196,10 +213,12 @@ public class Parser {
         if(tcs.peek() == TokenCode.VOID)
         {
             tcs.pop();
+            methodCallStack.pop();
             return;
         }
         else
             type();
+            methodCallStack.pop();
     }
 
     private void parameters()
@@ -209,6 +228,7 @@ public class Parser {
         {
             parameter_list();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -221,6 +241,7 @@ public class Parser {
             temp_parameter_list();
         }
         // error
+        methodCallStack.pop();
         return;
     }
 
@@ -235,6 +256,7 @@ public class Parser {
                 temp_parameter_list();
             }
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -252,6 +274,7 @@ public class Parser {
             statement();
             statement_list();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -325,6 +348,7 @@ public class Parser {
             if(tcs.peek() == TokenCode.SEMICOLON)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
@@ -335,11 +359,13 @@ public class Parser {
             if(tcs.peek() == TokenCode.SEMICOLON)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
         }
         else statement_block();
+        methodCallStack.pop();
     }
 
     private void statement_left_factor()
@@ -352,6 +378,7 @@ public class Parser {
             if(tcs.peek() == TokenCode.RPAREN)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
         }
@@ -360,6 +387,7 @@ public class Parser {
             variable_loc_left_factor();
             statement_left_left_factor();
         }
+        methodCallStack.pop();
     }
 
     private void statement_left_left_factor()
@@ -372,6 +400,7 @@ public class Parser {
             if(tcs.peek() == TokenCode.SEMICOLON)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
@@ -382,11 +411,13 @@ public class Parser {
             if(tcs.peek() == TokenCode.SEMICOLON)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
         }
         // error
+        methodCallStack.pop();
     }
 
     private void optional_expression()
@@ -401,6 +432,7 @@ public class Parser {
         {
             expression();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -414,11 +446,13 @@ public class Parser {
             if(tcs.peek() == TokenCode.LBRACE)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
         }
         // error
+        methodCallStack.pop();
     }
 
     private void incr_decr_var()
@@ -428,9 +462,11 @@ public class Parser {
         if(tcs.peek() == TokenCode.INCDECOP)
         {
             tcs.pop();
+            methodCallStack.pop();
             return;
         }
         // error
+        methodCallStack.pop();
     }
 
     private void optional_else()
@@ -441,6 +477,7 @@ public class Parser {
             tcs.pop();
             statement_block();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -456,6 +493,7 @@ public class Parser {
             expression();
             more_expressions();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -467,6 +505,7 @@ public class Parser {
             expression();
             more_expressions();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -482,6 +521,7 @@ public class Parser {
             simple_expression();
             ex_left_factor();
         }
+        methodCallStack.pop();
     }
 
     private void ex_left_factor()
@@ -492,6 +532,7 @@ public class Parser {
             tcs.pop();
             simple_expression();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -504,6 +545,7 @@ public class Parser {
         }
         term();
         temp_simple_expression();
+        methodCallStack.pop();
 
     }
 
@@ -516,6 +558,7 @@ public class Parser {
             term();
             temp_simple_expression();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -524,6 +567,7 @@ public class Parser {
         methodCallStack.push("term()");
         factor();
         temp_term();
+        methodCallStack.pop();
     }
 
     private void temp_term()
@@ -535,6 +579,7 @@ public class Parser {
             factor();
             temp_term();
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -549,6 +594,7 @@ public class Parser {
         if(tcs.peek() == TokenCode.NUMBER)
         {
             tcs.pop();
+            methodCallStack.pop();
             return;
         }
         if(tcs.peek() == TokenCode.LPAREN)
@@ -558,6 +604,7 @@ public class Parser {
             if(tcs.peek() == TokenCode.RPAREN)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
         }
@@ -565,6 +612,7 @@ public class Parser {
         {
             factor();
         }
+        methodCallStack.pop();
         // error
     }
 
@@ -578,11 +626,13 @@ public class Parser {
             if(tcs.peek() == TokenCode.RPAREN)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
         }
         variable_loc_left_factor();
+        methodCallStack.pop();
     }
 
     private void variable_loc()
@@ -593,6 +643,7 @@ public class Parser {
             tcs.pop();
             variable_loc_left_factor();
         }
+        methodCallStack.pop();
         // error
     }
 
@@ -606,10 +657,12 @@ public class Parser {
             if(tcs.peek() == TokenCode.RBRACKET)
             {
                 tcs.pop();
+                methodCallStack.pop();
                 return;
             }
             // error
         }
+        methodCallStack.pop();
         return;
     }
 
@@ -619,8 +672,10 @@ public class Parser {
        if(tcs.peek() == TokenCode.ADDOP)
        {
             tcs.pop();
+           methodCallStack.pop();
             return;
        }
        // error
+       methodCallStack.pop();
    }
 }
