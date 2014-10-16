@@ -35,6 +35,7 @@ MulOp    = "*"  | "/"  | "%" | "&&"
 AssignOp = "="
 
 // Reserved words
+Static   = "static"
 Class    = "class"
 Void     = "void"
 If       = "if"
@@ -87,6 +88,7 @@ WS      = [ \t\r\n]
 {AssignOp}      { return Token.createOp(TokenCode.ASSIGNOP, OpType.ASSIGN, yyline, yycolumn); }
 
 
+{Static}         { return Token.createRaw(TokenCode.STATIC, yyline, yycolumn); }
 {Class}         { return Token.createRaw(TokenCode.CLASS, yyline, yycolumn); }
 {Void}          { return Token.createRaw(TokenCode.VOID, yyline, yycolumn); }
 {If}            { return Token.createRaw(TokenCode.IF, yyline, yycolumn); }
