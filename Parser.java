@@ -385,12 +385,11 @@ public class Parser {
 
     private void optional_expression()
     {
-        if(tcs.peek() == TokenCode.ADDOP ||
-                tcs.peek() == TokenCode.IDENTIFIER ||
+        if( tcs.peek() == TokenCode.IDENTIFIER ||
                 tcs.peek() == TokenCode.NUMBER ||
+                tcs.peek() == TokenCode.NOT ||
                 tcs.peek() == TokenCode.LPAREN ||
-                tcs.peek() == TokenCode.NOT
-                )
+                tcs.peek() == TokenCode.ADDOP)
         {
             expression();
         }
@@ -436,16 +435,21 @@ public class Parser {
 
     private void expression_list()
     {
-        expression();
-        more_expressions();
+        if( tcs.peek() == TokenCode.IDENTIFIER ||
+                tcs.peek() == TokenCode.NUMBER ||
+                tcs.peek() == TokenCode.NOT ||
+                tcs.peek() == TokenCode.LPAREN ||
+                tcs.peek() == TokenCode.ADDOP)
+        {
+            expression();
+            more_expressions();
+        }
+        return;
     }
 
     private void more_expressions()
     {
-        if( tcs.peek() == TokenCode.IDENTIFIER ||
-            tcs.peek() == TokenCode.NUMBER ||
-            tcs.peek() == TokenCode.NOT ||
-            tcs.peek() == TokenCode.LPAREN)
+        if( tcs.peek() == TokenCode.COMMA)
         {
             expression();
             more_expressions();
@@ -455,13 +459,15 @@ public class Parser {
 
     private void expression()
     {
-        if(tcs.peek() == TokenCode.COMMA)
+        if( tcs.peek() == TokenCode.IDENTIFIER ||
+                tcs.peek() == TokenCode.NUMBER ||
+                tcs.peek() == TokenCode.NOT ||
+                tcs.peek() == TokenCode.LPAREN ||
+                tcs.peek() == TokenCode.ADDOP)
         {
-            tcs.pop();
-            expression();
-            more_expressions();
+            simple_expression();
+            ex_left_factor();
         }
-        return;
     }
 
     private void ex_left_factor()
